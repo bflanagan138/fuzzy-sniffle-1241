@@ -1,4 +1,12 @@
-    
+require 'rails_helper'
+
+RSpec.describe 'dish show page' do
+  before(:each) do  
+    Chef.delete_all
+    Dish.delete_all
+    Ingredient.delete_all
+    DishIngredient.delete_all
+
     @chef_1 = Chef.create!(name: "Guy Fieri")
     @chef_2 = Chef.create!(name: "Julia Child")
 
@@ -33,4 +41,32 @@
     @dish_ingredient_11 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_10.id)
     @dish_ingredient_12 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_11.id)
     @dish_ingredient_13 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_12.id)
- 
+   end
+
+  describe 'visit a dish show page' do
+    it 'shows dish name and description' do
+     visit chef_dish_path(@chef_1, @dish_1)
+     expect(page).to have_content("#{@dish_1.name}")
+     expect(page).to have_content("#{@dish_1.description}")
+     expect(page).to_not have_content("#{@dish_2.name}")
+    end
+
+    it 'shows dish ingredients' do
+      visit chef_dish_path(@chef_1, @dish_1)
+      expect(page).to have_content("#{@ingredient_1.name}")
+      expect(page).to have_content("#{@ingredient_2.name}")
+      expect(page).to have_content("#{@ingredient_3.name}")
+      expect(page).to_not have_content("#{@ingredient_9.name}")
+    end
+
+    it 'shows total calorie count for dish' do
+      visit chef_dish_path(@chef_1, @dish_1)
+
+    end
+
+    it 'shows chef name' do
+      visit chef_dish_path(@chef_1, @dish_1)
+      expect(page).to have_content("#{@chef_1.name}")
+    end
+  end
+end

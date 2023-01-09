@@ -1,4 +1,12 @@
-    
+require 'rails_helper'
+
+RSpec.describe 'dish show page' do
+  before(:each) do  
+    Chef.delete_all
+    Dish.delete_all
+    Ingredient.delete_all
+    DishIngredient.delete_all
+
     @chef_1 = Chef.create!(name: "Guy Fieri")
     @chef_2 = Chef.create!(name: "Julia Child")
 
@@ -33,4 +41,27 @@
     @dish_ingredient_11 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_10.id)
     @dish_ingredient_12 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_11.id)
     @dish_ingredient_13 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_12.id)
- 
+   end
+
+  describe 'visit a chef show page' do
+    it 'shows chef name and all of their dishes' do
+     visit chef_path(@chef_2)
+     
+     expect(page).to have_content("#{@chef_2.name}")
+     expect(page).to_not have_content("#{@chef_1.name}")
+     expect(page).to have_content("#{@dish_2.name}")
+     expect(page).to have_content("#{@dish_3.name}")
+     expect(page).to_not have_content("#{@dish_1.name}")
+    end
+
+    it 'shows form to add another existing dish to this chef' do
+      visit chef_path(@chef_2)
+      
+      expect(page).to have_field("Dish")
+      fill_in("Dish", with: "#{@dish_1.id}")
+      click_on "Add Dish"
+      save_and_open_page
+      expect(page).to have_content("#{@dish_1.name}")
+    end
+  end
+end
