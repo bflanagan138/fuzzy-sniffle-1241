@@ -46,12 +46,22 @@ RSpec.describe 'dish show page' do
   describe 'visit a chef show page' do
     it 'shows chef name and all of their dishes' do
      visit chef_path(@chef_2)
-     save_and_open_page
+     
      expect(page).to have_content("#{@chef_2.name}")
      expect(page).to_not have_content("#{@chef_1.name}")
      expect(page).to have_content("#{@dish_2.name}")
      expect(page).to have_content("#{@dish_3.name}")
      expect(page).to_not have_content("#{@dish_1.name}")
+    end
+
+    it 'shows form to add another existing dish to this chef' do
+      visit chef_path(@chef_2)
+      
+      expect(page).to have_field("Dish")
+      fill_in("Dish", with: "#{@dish_1.id}")
+      click_on "Add Dish"
+      save_and_open_page
+      expect(page).to have_content("#{@dish_1.name}")
     end
   end
 end
