@@ -52,7 +52,15 @@ RSpec.describe 'dish show page' do
       expect(page).to have_content("#{@ingredient_2.name}")
       expect(page).to have_content("#{@ingredient_3.name}")
       expect(page).to_not have_content("#{@ingredient_9.name}")
-    save_and_open_page
+    end
+
+    it 'shows total calorie count for dish' do
+
+    end
+
+    it 'shows chef name' do
+      visit chef_dish_path(@chef_1, @dish_1)
+      expect(page).to have_content("#{@chef_1.name}")
     end
   end
 end
