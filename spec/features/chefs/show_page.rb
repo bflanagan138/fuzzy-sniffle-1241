@@ -46,6 +46,7 @@ RSpec.describe 'dish show page' do
   describe 'visit a chef show page' do
     it 'shows chef name and all of their dishes' do
      visit chef_path(@chef_2)
+     save_and_open_page
      expect(page).to have_content("#{@chef_2.name}")
      expect(page).to_not have_content("#{@chef_1.name}")
      expect(page).to have_content("#{@dish_2.name}")
