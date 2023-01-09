@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'dish show page' do
-  before(:each) do
+  before(:each) do  
+    Chef.delete_all
+    Dish.delete_all
+    Ingredient.delete_all
+    DishIngredient.delete_all
+
     @chef_1 = Chef.create!(name: "Guy Fieri")
     @chef_2 = Chef.create!(name: "Julia Child")
 
@@ -23,19 +28,19 @@ RSpec.describe 'dish show page' do
     @ingredient_11 = Ingredient.create!(name: "protein powder", calories: 420)
     @ingredient_12 = Ingredient.create!(name: "greens", calories: 20)
 
-    @dish_ingredient_1 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_1.id, ingredient_quantity: 3)
-    @dish_ingredient_2 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_2.id, ingredient_quantity: 1)
-    @dish_ingredient_3 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_3.id, ingredient_quantity: 2)
-    @dish_ingredient_4 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_4.id, ingredient_quantity: 4)
-    @dish_ingredient_5 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_5.id, ingredient_quantity: 6)
-    @dish_ingredient_6 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_7.id, ingredient_quantity: 4)
-    @dish_ingredient_7 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_6.id, ingredient_quantity: 3)
-    @dish_ingredient_8 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_7.id, ingredient_quantity: 2)
-    @dish_ingredient_9 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_8.id, ingredient_quantity: 3)
-    @dish_ingredient_10 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_9.id, ingredient_quantity: 3)
-    @dish_ingredient_11 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_10.id, ingredient_quantity: 3)
-    @dish_ingredient_12 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_11.id, ingredient_quantity: 3)
-    @dish_ingredient_13 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_12.id, ingredient_quantity: 3)
+    @dish_ingredient_1 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_1.id)
+    @dish_ingredient_2 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_2.id)
+    @dish_ingredient_3 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_3.id)
+    @dish_ingredient_4 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_4.id)
+    @dish_ingredient_5 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_5.id)
+    @dish_ingredient_6 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_7.id)
+    @dish_ingredient_7 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_6.id)
+    @dish_ingredient_8 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_7.id)
+    @dish_ingredient_9 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_8.id)
+    @dish_ingredient_10 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_9.id)
+    @dish_ingredient_11 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_10.id)
+    @dish_ingredient_12 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_11.id)
+    @dish_ingredient_13 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_12.id)
    end
 
   describe 'visit a dish show page' do
@@ -55,6 +60,7 @@ RSpec.describe 'dish show page' do
     end
 
     it 'shows total calorie count for dish' do
+      visit chef_dish_path(@chef_1, @dish_1)
 
     end
 

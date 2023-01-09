@@ -31,24 +31,30 @@ RSpec.describe Dish, type: :model do
     @ingredient_11 = Ingredient.create!(name: "protein powder", calories: 420)
     @ingredient_12 = Ingredient.create!(name: "greens", calories: 20)
 
-    @dish_ingredient_1 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_1.id, ingredient_quantity: 3)
-    @dish_ingredient_2 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_2.id, ingredient_quantity: 1)
-    @dish_ingredient_3 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_3.id, ingredient_quantity: 2)
-    @dish_ingredient_4 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_4.id, ingredient_quantity: 4)
-    @dish_ingredient_5 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_5.id, ingredient_quantity: 6)
-    @dish_ingredient_6 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_7.id, ingredient_quantity: 4)
-    @dish_ingredient_7 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_6.id, ingredient_quantity: 3)
-    @dish_ingredient_8 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_7.id, ingredient_quantity: 2)
-    @dish_ingredient_9 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_8.id, ingredient_quantity: 3)
-    @dish_ingredient_10 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_9.id, ingredient_quantity: 3)
-    @dish_ingredient_11 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_10.id, ingredient_quantity: 3)
-    @dish_ingredient_12 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_11.id, ingredient_quantity: 3)
-    @dish_ingredient_13 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_12.id, ingredient_quantity: 3)
+    @dish_ingredient_1 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_1.id)
+    @dish_ingredient_2 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_2.id)
+    @dish_ingredient_3 = DishIngredient.create!(dish_id: @dish_1.id, ingredient_id: @ingredient_3.id)
+    @dish_ingredient_4 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_4.id)
+    @dish_ingredient_5 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_5.id)
+    @dish_ingredient_6 = DishIngredient.create!(dish_id: @dish_2.id, ingredient_id: @ingredient_7.id)
+    @dish_ingredient_7 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_6.id)
+    @dish_ingredient_8 = DishIngredient.create!(dish_id: @dish_3.id, ingredient_id: @ingredient_7.id)
+    @dish_ingredient_9 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_8.id)
+    @dish_ingredient_10 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_9.id)
+    @dish_ingredient_11 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_10.id)
+    @dish_ingredient_12 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_11.id)
+    @dish_ingredient_13 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_12.id)
   end
 
   describe 'dish ingredients' do
     it 'returns all ingredients in a dish' do
       expect(@dish_1.all_ingredients.sort).to eq([@ingredient_1, @ingredient_2, @ingredient_3])
+    end
+  end
+
+  describe 'total calorie count' do
+    it 'returns calorie count for dish' do
+      expect(@dish_1.calorie_count).to eq(405)
     end
   end
 end
