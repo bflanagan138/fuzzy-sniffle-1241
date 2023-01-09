@@ -2,11 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'dish show page' do
   before(:each) do
-    Chef.delete_all
-    Dish.delete_all
-    Ingredient.delete_all
-    DishIngredient.delete_all
-
     @chef_1 = Chef.create!(name: "Guy Fieri")
     @chef_2 = Chef.create!(name: "Julia Child")
 
@@ -43,11 +38,13 @@ RSpec.describe 'dish show page' do
     @dish_ingredient_1 = DishIngredient.create!(dish_id: @dish_4.id, ingredient_id: @ingredient_12.id, ingredient_quantity: 3)
   end
 
-  describe 'visit a dish show page'
-#   As a visitor
-# When I visit a dish's show page
-# I see the dish’s name and description
-# And I see a list of ingredients for that dish
-# and a total calorie count for that dish
-# And I see the chef's name.
+  describe 'visit a dish show page' do
+    it 'shows dish name and description' do
+     visit chef_dish_path(@chef_1, @dish_1)
+     expect(page).to have_content("#{@dish_1.name}")
+     expect(page).to have_content("#{@dish_1.description}")
+     expect(page).to_not have_content("#{@dish_2.name}")
+    
+    end
+  end
 end
